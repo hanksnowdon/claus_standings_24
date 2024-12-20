@@ -1,22 +1,23 @@
 # app.R
 library(shiny)
-library(cfbfastR)
 library(dplyr)
 library(tibble)
 library(stringr)
 library(readr)
 library(tidyr)
-
-# If you have a CFBD_API_KEY, load it here if needed. For example:
-Sys.setenv(CFBD_API_KEY = Sys.getenv("CFB_SECRET"))
+library(googlesheets4)
 
 # Load your saved data
 picksfinal <- readRDS("picksfinal.rds")
 teamlist <- readRDS("teamlist.rds")
 
+gs4_deauth()
+
+sheet_url <- "https://docs.google.com/spreadsheets/d/1AqCmTVOOt_Cr7oRm61tQ8690VBjfufa4BS-1igNqMCc/edit?usp=sharing"
+ 
 # Function to fetch the latest game info
 update_results <- function() {
-  livegames <- cfbd_game_info(2024, season_type = "postseason") %>%
+  livegames <- read_sheet(sheet_url, sheet = "Games") %>%
     filter(home_division != "iii" &
              home_division != "ii" &
              !str_detect(notes, "(FCS|SWAC) Championship")) %>%

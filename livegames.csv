@@ -1,0 +1,40 @@
+game_id,start_date,completed,home_id,home_team,home_points,away_id,away_team,away_points,notes
+401677077,2024-12-15T02:00:00.000Z,TRUE,2711,Western Michigan,23,6,South Alabama,30,IS4S Salute to Veterans Bowl
+401677080,2024-12-18T02:00:00.000Z,TRUE,277,West Virginia,37,235,Memphis,42,Scooter's Coffee Frisco Bowl
+401677079,2024-12-18T22:30:00.000Z,TRUE,256,James Madison,27,98,Western Kentucky,17,Boca Raton Bowl
+401677081,2024-12-19T02:00:00.000Z,TRUE,2439,UNLV,24,25,California,13,Art of Sport LA Bowl
+401677082,2024-12-20T00:00:00.000Z,FALSE,2534,Sam Houston,NA,290,Georgia Southern,NA,R+L Carriers New Orleans Bowl
+401677083,2024-12-20T17:00:00.000Z,FALSE,55,Jacksonville State,NA,195,Ohio,NA,StaffDNA Cure Bowl
+401677084,2024-12-20T20:30:00.000Z,FALSE,57,Florida,NA,2655,Tulane,NA,Union Home Mortgage Gasparilla Bowl
+401677179,2024-12-21T01:00:00.000Z,FALSE,87,Notre Dame,NA,84,Indiana,NA,College Football Playoff First Round Game Presented by Allstate
+401677178,2024-12-21T17:00:00.000Z,FALSE,213,Penn State,NA,2567,SMU,NA,College Football Playoff First Round Game Presented by Allstate
+401677176,2024-12-21T21:00:00.000Z,FALSE,251,Texas,NA,228,Clemson,NA,College Football Playoff First Round Game Presented by Allstate
+401677177,2024-12-22T01:00:00.000Z,FALSE,194,Ohio State,NA,2633,Tennessee,NA,College Football Playoff First Round Game Presented by Allstate
+401677085,2024-12-23T16:00:00.000Z,FALSE,2636,UTSA,NA,324,Coastal Carolina,NA,Myrtle Beach Bowl
+401677086,2024-12-23T19:30:00.000Z,FALSE,278,Fresno State,NA,2459,Northern Illinois,NA,Famous Idaho Potato Bowl
+401677087,2024-12-25T01:00:00.000Z,FALSE,23,San José State,NA,58,South Florida,NA,Hawaiʻi Bowl
+401677180,2024-12-26T19:00:00.000Z,FALSE,2649,Toledo,NA,221,Pittsburgh,NA,GameAbove Sports Bowl
+401677088,2024-12-26T22:30:00.000Z,FALSE,2306,Kansas State,NA,164,Rutgers,NA,Rate Bowl
+401677089,2024-12-27T02:00:00.000Z,FALSE,189,Bowling Green,NA,2032,Arkansas State,NA,68 Ventures Bowl
+401677090,2024-12-27T17:00:00.000Z,FALSE,2426,Navy,NA,201,Oklahoma,NA,Lockheed Martin Armed Forces Bowl
+401677091,2024-12-27T20:30:00.000Z,FALSE,238,Vanderbilt,NA,59,Georgia Tech,NA,Birmingham Bowl
+401677092,2024-12-28T00:00:00.000Z,FALSE,8,Arkansas,NA,2641,Texas Tech,NA,AutoZone Liberty Bowl
+401729867,2024-12-28T01:00:00.000Z,FALSE,265,Washington State,NA,183,Syracuse,NA,DirecTV Holiday Bowl
+401677093,2024-12-28T03:30:00.000Z,FALSE,30,USC,NA,245,Texas A&M,NA,SRS Distribution Las Vegas Bowl
+401677094,2024-12-28T16:00:00.000Z,FALSE,153,North Carolina,NA,41,UConn,NA,Wasabi Fenway Bowl
+401677095,2024-12-28T17:00:00.000Z,FALSE,158,Nebraska,NA,103,Boston College,NA,Bad Boy Mowers Pinstripe Bowl
+401677096,2024-12-28T19:15:00.000Z,FALSE,2628,TCU,NA,309,Louisiana,NA,Isleta New Mexico Bowl
+401677097,2024-12-28T20:30:00.000Z,FALSE,2390,Miami,NA,66,Iowa State,NA,Pop-Tarts Bowl
+401677188,2024-12-28T21:30:00.000Z,FALSE,36,Colorado State,NA,193,Miami (OH),NA,Snoop Dogg Arizona Bowl
+401677098,2024-12-28T22:45:00.000Z,FALSE,152,NC State,NA,151,East Carolina,NA,Go Bowling Military Bowl
+401677099,2024-12-29T00:30:00.000Z,FALSE,38,Colorado,NA,252,BYU,NA,Valero Alamo Bowl
+401677100,2024-12-29T02:15:00.000Z,FALSE,349,Army,NA,2348,Louisiana Tech,NA,Radiance Technologies Independence Bowl
+401677101,2024-12-30T19:30:00.000Z,FALSE,142,Missouri,NA,2294,Iowa,NA,TransPerfect Music City Bowl
+401677102,2024-12-31T17:00:00.000Z,FALSE,130,Michigan,NA,333,Alabama,NA,ReliaQuest Bowl
+401677190,2024-12-31T19:00:00.000Z,FALSE,264,Washington,NA,97,Louisville,NA,Tony the Tiger Sun Bowl
+401677103,2024-12-31T20:00:00.000Z,FALSE,356,Illinois,NA,2579,South Carolina,NA,Cheez-It Citrus Bowl
+401677104,2024-12-31T20:30:00.000Z,FALSE,99,LSU,NA,239,Baylor,NA,Kinder's Texas Bowl
+401677105,2025-01-03T00:30:00.000Z,FALSE,145,Ole Miss,NA,150,Duke,NA,TaxSlayer Gator Bowl
+401677106,2025-01-03T21:00:00.000Z,FALSE,326,Texas State,NA,249,North Texas,NA,SERVPRO First Responder Bowl
+401677107,2025-01-04T00:30:00.000Z,FALSE,259,Virginia Tech,NA,135,Minnesota,NA,Duke's Mayo Bowl
+401677108,2025-01-04T16:00:00.000Z,FALSE,2335,Liberty,NA,2084,Buffalo,NA,Bahamas Bowl Presented by Atlantis Resorts
