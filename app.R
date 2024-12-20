@@ -49,21 +49,21 @@ update_results <- function() {
                                          TRUE ~ fav_id),
                                NA)
            ,
-           correct = ifelse(pick_id == winning_id, 1, 0)
-             # case_when(
-             # str_detect(notes, "CFP Semifinal") ~ ifelse(pick_id == winning_id, 3, 0),
-             # str_detect(notes, "CFP National Championship") ~ ifelse(pick_id == winning_id, 5, 0),
-             # TRUE ~ ifelse(pick_id == winning_id, 1, 0)
-           
+           points =  
+             case_when(
+             str_detect(game, "2 points") ~ ifelse(pick_id == winning_id, 2, 0),
+             str_detect(game, "4 points") ~ ifelse(pick_id == winning_id, 4, 0),
+             TRUE ~ ifelse(pick_id == winning_id, 1, 0)
+             )
     )
   
   standings <- results %>%
     group_by(Name) %>%
-    summarise(points = sum(correct, na.rm = TRUE)) %>%
+    summarise(points = sum(points, na.rm = TRUE)) %>%
     arrange(desc(points))
   
   webpage_picks <- results %>%
-    select( game,  Date, `Time (EST)`, Name, pick,  Favorite, fav_points, Underdog, und_points, Spread, pick_id, fav_id, und_id, winning_id, completed, correct) %>%
+    select( game,  Date, `Time (EST)`, Name, pick,  Favorite, fav_points, Underdog, und_points, Spread, pick_id, fav_id, und_id, winning_id, completed, points) %>%
     left_join(teamlist, by = c("winning_id" = "team_id")) %>%
     mutate(winner = ifelse(winning_id == 0, "Push", pick.y)) %>%
     select(-pick.y, -pick_id, -fav_id, -und_id, -winning_id) %>%
@@ -136,12 +136,12 @@ server <- function(input, output, session) {
               options = list(pageLength = 50, autoWidth = TRUE, dom = 't'),
               rownames = FALSE) %>%
       formatStyle(
-        # Assume 'correct' is numeric (0 or 1, or could be >1 if semifinal)
-        columns = c("Game", "Date", "Time (EST)", "Name", "Pick", "Favorite", "Fav. Score", "Underdog", "Und. Score", "Spread", "Winner", "correct", "completed"),
-        valueColumns = "correct",
+        # Assume 'points' is numeric (0 or 1, or could be >1 if semifinal)
+        columns = c("Game", "Date", "Time (EST)", "Name", "Pick", "Favorite", "Fav. Score", "Underdog", "Und. Score", "Spread", "Winner", "points", "completed"),
+        valueColumns = "points",
         backgroundColor = styleEqual(
-          c(0, 1, 3, 5), # possible values: 0=incorrect, 1=correct normal bowl, 3=correct semifinal, 5=correct championship
-          c("#ffe6e6", "#e6ffe6", "#e6ffe6", "#e6ffe6") # green for correct picks (1,3,5), red for incorrect (0)
+          c(0, 1, 2, 4), # possible values: 0=incorrect, 1=correct normal bowl, 3=correct semifinal, 5=correct championship
+          c("#ffe6e6", "#e6ffe2", "#e6ffe6", "#e6ffe6") # green for correct picks (1,3,5), red for incorrect (0)
         )
       )
   })
