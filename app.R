@@ -66,7 +66,7 @@ update_results <- function() {
     select( game,  Date, `Time (EST)`, Name, pick,  Favorite, fav_points, Underdog, und_points, Spread, pick_id, fav_id, und_id, winning_id, completed, correct) %>%
     left_join(teamlist, by = c("winning_id" = "team_id")) %>%
     mutate(winner = ifelse(winning_id == 0, "Push", pick.y)) %>%
-    select(-pick.y) %>%
+    select(-pick.y, -pick_id, -fav_id, -und_id, -winning_id) %>%
     rename(Game = game,  Pick = pick.x ,`Und. Score`= und_points ,   `Fav. Score` = fav_points,   Winner = winner)
   
   list(standings = standings, webpage_picks = webpage_picks)
@@ -76,34 +76,76 @@ update_results <- function() {
 data_cache <- reactiveVal(update_results())
 
 # Define UI
-ui <- fluidPage(
-  titlePanel("Bowl Pool Standings"),
-  sidebarLayout(
-    sidebarPanel(
-      actionButton("refresh", "Refresh Data")
-    ),
-    mainPanel(
-      h3("Current Standings"),
-      tableOutput("standings_table"),
-      h3("Picks and Results"),
-      tableOutput("picks_table")
-    )
-  )
+ui <- navbarPage("CLAuS Bowl 2024",
+                 
+                 # Standings Page
+                 tabPanel("Standings",
+                          fluidPage(
+                            titlePanel("Current Standings"),
+                            DTOutput("standings_table")
+                          )
+                 ),
+                 
+                 # Results/Picks Page
+                 tabPanel("Results/Picks",
+                          fluidPage(
+                            titlePanel("Results and Picks"),
+                            sidebarLayout(
+                              sidebarPanel(
+                                # Dropdown to select a person
+                                selectInput("selected_person", "Select a Person:", choices = NULL) 
+                              ),
+                              mainPanel(
+                                DTOutput("picks_table")
+                              )
+                            )
+                          )
+                 )
 )
 
 # Define server logic
 server <- function(input, output, session) {
-  observeEvent(input$refresh, {
-    data_cache(update_results())
+ 
+  # Update the person dropdown whenever data changes
+  observe({
+    req(data_cache()$webpage_picks)
+    all_names <- sort(unique(data_cache()$webpage_picks$Name))
+    updateSelectInput(session, "selected_person", choices = all_names, selected = all_names[1])
   })
   
-  output$standings_table <- renderTable({
-    data_cache()$standings
+  # Standings table
+  output$standings_table <- renderDT({
+    datatable(data_cache()$standings, options = list(
+      dom = 't',          # only show table
+      pageLength = 25,    # can still show 25 rows by default
+      autoWidth = TRUE
+    ))
   })
   
-  output$picks_table <- renderTable({
-    data_cache()$webpage_picks
+  # Filter picks by selected person
+  filtered_picks <- reactive({
+    req(input$selected_person)
+    data_cache()$webpage_picks %>%
+      filter(Name == input$selected_person)
   })
+  
+  # Results/Picks table with conditional formatting
+  output$picks_table <- renderDT({
+    req(filtered_picks())
+    datatable(filtered_picks(),
+              options = list(pageLength = 50, autoWidth = TRUE, dom = 't'),
+              rownames = FALSE) %>%
+      formatStyle(
+        # Assume 'correct' is numeric (0 or 1, or could be >1 if semifinal)
+        columns = c("Game", "Date", "Time (EST)", "Name", "Pick", "Favorite", "Fav. Score", "Underdog", "Und. Score", "Spread", "Winner", "correct", "completed"),
+        valueColumns = "correct",
+        backgroundColor = styleEqual(
+          c(0, 1, 3, 5), # possible values: 0=incorrect, 1=correct normal bowl, 3=correct semifinal, 5=correct championship
+          c("#ffe6e6", "#e6ffe6", "#e6ffe6", "#e6ffe6") # green for correct picks (1,3,5), red for incorrect (0)
+        )
+      )
+  })
+  
 }
 
 # Run the application
