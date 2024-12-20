@@ -2,10 +2,11 @@
 library(shiny)
 library(dplyr)
 library(tibble)
-library(stringr)
+# library(stringr)
 library(readr)
 library(tidyr)
 library(googlesheets4)
+library(purrr)
 
 # Load your saved data
 picksfinal <- readRDS("picksfinal.rds")
@@ -17,11 +18,11 @@ sheet_url <- "https://docs.google.com/spreadsheets/d/1AqCmTVOOt_Cr7oRm61tQ8690VB
  
 # Function to fetch the latest game info
 update_results <- function() {
-  livegames <- read_sheet(sheet_url, sheet = "Games") %>%
-    filter(home_division != "iii" &
-             home_division != "ii" &
-             !str_detect(notes, "(FCS|SWAC) Championship")) %>%
-    select(game_id, start_date, completed, home_id, home_team, home_points, away_id, away_team, away_points, notes)
+  livegames <- read_sheet(sheet_url, sheet = "Games")  %>%
+    mutate(
+      home_points = map_dbl(home_points, ~ as.numeric(.x[[1]])),
+      away_points = map_dbl(away_points, ~ as.numeric(.x[[1]]))
+    )
   
   results <- picksfinal %>%
     inner_join(livegames, by = "game_id") %>%
@@ -46,12 +47,13 @@ update_results <- function() {
                                case_when(fav_points - Spread > und_points ~ fav_id,
                                          fav_points - Spread < und_points ~ und_id,
                                          TRUE ~ fav_id),
-                               NA),
-           correct = case_when(
-             str_detect(notes, "CFP Semifinal") ~ ifelse(pick_id == winning_id, 3, 0),
-             str_detect(notes, "CFP National Championship") ~ ifelse(pick_id == winning_id, 5, 0),
-             TRUE ~ ifelse(pick_id == winning_id, 1, 0)
-           )
+                               NA)
+           # ,
+           # correct = case_when(
+           #   str_detect(notes, "CFP Semifinal") ~ ifelse(pick_id == winning_id, 3, 0),
+           #   str_detect(notes, "CFP National Championship") ~ ifelse(pick_id == winning_id, 5, 0),
+           #   TRUE ~ ifelse(pick_id == winning_id, 1, 0)
+           # )
     )
   
   standings <- results %>%
@@ -107,5 +109,4 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 
 
-rsconnect::deployApp()
 

@@ -29,7 +29,7 @@ jobs:
           restore-keys: ${{ runner.os }}-r-
 
       - name: Install dependencies
-        run: Rscript -e 'install.packages(c("remotes"))' && Rscript -e 'remotes::install_cran(c("shiny","googlesheets4","dplyr","tibble","stringr","readr","tidyr","rsconnect"))'
+        run: Rscript -e 'install.packages(c("remotes"))' && Rscript -e 'remotes::install_cran(c("shiny","googlesheets4","dplyr","tibble","readr","tidyr","rsconnect"))'
 
       - name: Generate updated standings and results
         run: Rscript -e 'source("app.R", local=TRUE)' 
