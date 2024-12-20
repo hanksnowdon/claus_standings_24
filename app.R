@@ -7,6 +7,8 @@ library(readr)
 library(tidyr)
 library(googlesheets4)
 library(purrr)
+library(DT) # ensure DT is loaded here
+
 
 # Load your saved data
 picksfinal <- readRDS("picksfinal.rds")
@@ -50,11 +52,11 @@ update_results <- function() {
                                NA)
            ,
            points =  
-             case_when(
-             str_detect(game, "2 points") ~ ifelse(pick_id == winning_id, 2, 0),
-             str_detect(game, "4 points") ~ ifelse(pick_id == winning_id, 4, 0),
-             TRUE ~ ifelse(pick_id == winning_id, 1, 0)
-             )
+             ifelse(grepl("2 points", game),
+                    ifelse(pick_id == winning_id, 2, 0),
+                    ifelse(grepl("4 points", game),
+                           ifelse(pick_id == winning_id, 4, 0),
+                           ifelse(pick_id == winning_id, 1, 0)))
     )
   
   standings <- results %>%
