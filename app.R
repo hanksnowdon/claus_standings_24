@@ -8,7 +8,7 @@ library(readr)
 library(tidyr)
 
 # If you have a CFBD_API_KEY, load it here if needed. For example:
-# Sys.setenv(CFBD_API_KEY = Sys.getenv("CFB_SECRET"))
+Sys.setenv(CFBD_API_KEY = Sys.getenv("CFB_SECRET"))
 
 # Load your saved data
 picksfinal <- readRDS("picksfinal.rds")
@@ -104,3 +104,7 @@ server <- function(input, output, session) {
 
 # Run the application
 shinyApp(ui = ui, server = server)
+
+
+rsconnect::deployApp()
+
