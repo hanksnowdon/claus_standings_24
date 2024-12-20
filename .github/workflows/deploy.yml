@@ -33,7 +33,7 @@ jobs:
           Rscript -e 'install.packages(c("remotes"))'
           Rscript -e 'remotes::install_cran(c("shiny","dplyr","tibble","stringr","readr","tidyr","rsconnect"))'
           # Install cfbfastR from GitHub:
-          Rscript -e 'remotes::install_github("sportsdataverse/cfbfastR")'
+          Rscript -e 'remotes::install_github("sportsdataverse/cfbfastR", auth_token = "")'
 
       - name: Generate updated standings and results
         run: Rscript -e 'source("app.R", local=TRUE)' 
