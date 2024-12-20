@@ -48,12 +48,13 @@ update_results <- function() {
                                          fav_points - Spread < und_points ~ und_id,
                                          TRUE ~ fav_id),
                                NA)
-           # ,
-           # correct = case_when(
-           #   str_detect(notes, "CFP Semifinal") ~ ifelse(pick_id == winning_id, 3, 0),
-           #   str_detect(notes, "CFP National Championship") ~ ifelse(pick_id == winning_id, 5, 0),
-           #   TRUE ~ ifelse(pick_id == winning_id, 1, 0)
-           # )
+           ,
+           correct = ifelse(pick_id == winning_id, 1, 0)
+             # case_when(
+             # str_detect(notes, "CFP Semifinal") ~ ifelse(pick_id == winning_id, 3, 0),
+             # str_detect(notes, "CFP National Championship") ~ ifelse(pick_id == winning_id, 5, 0),
+             # TRUE ~ ifelse(pick_id == winning_id, 1, 0)
+           
     )
   
   standings <- results %>%
