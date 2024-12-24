@@ -134,8 +134,16 @@ server <- function(input, output, session) {
   # Results/Picks table with conditional formatting
   output$picks_table <- renderDT({
     req(filtered_picks())
-    datatable(filtered_picks(),
-              options = list(pageLength = 50, autoWidth = TRUE, dom = 't'),
+    datatable(filtered_picks(), # Enable the extension
+              extensions = 'FixedHeader',
+              options = list(
+                pageLength = 25,
+                autoWidth = TRUE,
+                scrollX = TRUE,
+                scrollY = '500px',   # set desired table height for vertical scroll
+                fixedHeader = TRUE,  # freeze the header upon scrolling
+                dom = 't'            # hide search bar / show bar if desired
+              ),
               rownames = FALSE) %>%
       formatStyle(
         # Assume 'points' is numeric (0 or 1, or could be >1 if semifinal)
