@@ -137,7 +137,7 @@ server <- function(input, output, session) {
     datatable(filtered_picks(), # Enable the extension
               extensions = 'FixedHeader',
               options = list(
-                pageLength = 25,
+                pageLength = 45,
                 autoWidth = TRUE,
                 scrollX = TRUE,
                 scrollY = '500px',   # set desired table height for vertical scroll
