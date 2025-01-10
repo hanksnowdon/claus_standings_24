@@ -51,12 +51,19 @@ update_results <- function() {
                                          TRUE ~ fav_id),
                                NA)
            ,
-           points =  
-             ifelse(grepl("2 points", game),
-                    ifelse(pick_id == winning_id, 2, 0),
-                    ifelse(grepl("4 points", game),
-                           ifelse(pick_id == winning_id, 4, 0),
-                           ifelse(pick_id == winning_id, 1, 0)))
+           points = ifelse(
+             grepl("2 points", game),
+             ifelse(pick_id == winning_id, 2, 0),
+             ifelse(
+               grepl("4 points", game),
+               ifelse(pick_id == winning_id, 4, 0),
+               ifelse(
+                 grepl("6 points", game),
+                 ifelse(pick_id == winning_id, 6, 0),
+                 ifelse(pick_id == winning_id, 1, 0)
+               )
+             )
+           )
     )
   
   standings <- results %>%
@@ -150,8 +157,8 @@ server <- function(input, output, session) {
         columns = c("Game", "Date", "Time (EST)", "Name", "Pick", "Favorite", "Fav. Score", "Underdog", "Und. Score", "Spread", "Winner", "points", "completed"),
         valueColumns = "points",
         backgroundColor = styleEqual(
-          c(0, 1, 2, 4), # possible values: 0=incorrect, 1=correct normal bowl, 3=correct semifinal, 5=correct championship
-          c("#ffe6e6", "#e6ffe2", "#e6ffe6", "#e6ffe6") # green for correct picks (1,3,5), red for incorrect (0)
+          c(0, 1, 2, 4,6), # possible values: 0=incorrect, 1=correct normal bowl, 3=correct semifinal, 5=correct championship
+          c("#ffe6e6", "#e6ffe2", "#e6ffe6", "#e6ffe6", "#e6ffe6") # green for correct picks (1,3,5), red for incorrect (0)
         )
       )
   })
